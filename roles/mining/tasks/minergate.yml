@@ -1,0 +1,19 @@
+---
+- name: Install minergate
+  get_url:
+    url: https://minergate.com/download/deb-cli
+    dest: /root/minergate-cli-v4.05.deb
+    checksum: md5:9e7cc91ef8cf6289c9c1d3e2efce8b3d
+
+- name: Setup minergate script
+  template: src=minergate.j2 dest=/home/mining/minergate.sh
+            owner=mining group=mining mode=0550
+
+- name: Setup minergate service
+  template: src=minergate-service.j2 dest=/etc/systemd/system/minergate.service
+            owner=root group=root mode=0440
+  when: mining_minergate_service is defined and mining_minergate_service
+
+- name: Enable minergate service
+  service: name=minergate.service enabled=yes
+  when: mining_minergate_service is defined and mining_minergate_service

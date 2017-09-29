@@ -1,0 +1,16 @@
+---
+##########
+# Mining options
+##########
+mining_device_name: "{{ ansible_hostname }}"
+mining_minergate: True
+mining_minergate_service: True
+mining_ccminer: True
+mining_ccminer_service: False
+mining_ccminer_cryptonight: True
+mining_ccminer_cryptonight_service: False
+mining_ewbf_zec: True
+mining_ewbf_zec_service: True
+mining_sia_devices: "0,1"
+mining_xmr_xdn_devices: "0,1"
+mining_zec_devices: "0 1 2 3 4 5"

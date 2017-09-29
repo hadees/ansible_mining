@@ -1,0 +1,51 @@
+---
+- name: Update apt cache
+  apt: update_cache=yes cache_valid_time=3600
+  ignore_errors: True
+
+- name: Install dependencies
+  apt:  pkg={{item}} state=present
+  with_items:
+    - linux-headers-generic
+
+- name: Download network installer
+  get_url:
+    url: http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/cuda-repo-ubuntu1604_9.0.176-1_amd64.deb
+    dest: /root/cuda-repo-ubuntu1604_9.0.176-1_amd64.deb
+    checksum: md5:4b8004dd747dbb664e85b17dec3fee51
+
+- name: Install apt cuda repo (deb)
+  apt:
+    deb: /root/cuda-repo-ubuntu1604_9.0.176-1_amd64.deb
+
+- name: Add apt key(s)
+  apt_key: url="https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/7fa2af80.pub"
+
+- name: Update apt cache
+  apt: update_cache=yes cache_valid_time=3600
+  ignore_errors: True
+
+- name: Install cuda packages
+  apt: name="{{ item }}" state=present
+  with_items:
+    - cuda
+
+- stat: path=/{{ administrator_user }}/.bashrc
+  register: p
+
+- name: Create extended bashrc if necessary
+  file: path=/{{ administrator_user }}/.bashrc
+        owner={{ administrator_user }}
+        group={{ administrator_user }}
+        mode=0770
+        state={{ "file" if  p.stat.exists else "touch"}}
+
+- name: Add cuda to path (.bashrc)
+  lineinfile:
+    path: /{{ administrator_user }}/.bashrc
+    line: 'export PATH=/usr/local/cuda/bin:${PATH}'
+
+- name: Add cuda to ld library path (.bashrc)
+  lineinfile:
+    path: /{{ administrator_user }}/.bashrc
+    line: 'export LD_LIBRARY_PATH=/usr/local/cuda/lib64:${LD_LIBRARY_PATH}'

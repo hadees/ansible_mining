@@ -1,0 +1,26 @@
+---
+mining_minergate: True
+mining_minergate_service: False
+mining_ccminer: False
+mining_ccminer_service: False
+mining_ccminer_cryptonight: False
+mining_ccminer_cryptonight_service: False
+mining_ewbf_zec: False
+mining_ewbf_zec_service: False
+
+
+mining_free_cpu_cores: "{{ 2 * ansible_processor_count }}"
+mining_device_name: default
+
+mining_bcn_cores: 1
+mining_sia_intensity: 28
+
+
+mining_xmr_xdn_devices: "0,1,2,3,4,5"
+mining_sia_devices: "0,1,2,3,4,5"
+mining_zec_devices: "0 1 3 4 5"
+
+
+mining_email: none@where.com
+mining_address_zec: asdf1234asdf
+mining_address_sc: asdf1234asdf

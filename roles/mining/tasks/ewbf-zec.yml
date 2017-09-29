@@ -1,0 +1,33 @@
+---
+- name: Download ewbf miner
+  get_url:
+    url: https://github.com/nanopool/ewbf-miner/releases/download/v0.3.4b/Zec.miner.0.3.4b.Linux.Bin.tar.gz
+    dest: /root/Zec.miner.0.3.4b.Linux.Bin.tar.gz
+    checksum: md5:8baefb5fbf21724512bfc02bd1bece79
+
+- name: Create ewbf destination directory
+  file: path=/home/mining/zec-miner state=directory
+        owner=mining group=mining mode=0770
+
+- name: Extract ewbf miner package
+  unarchive:
+    src: /root/Zec.miner.0.3.4b.Linux.Bin.tar.gz
+    dest: /home/mining/zec-miner
+    remote_src: yes
+
+- name: Setup ewbf miner config
+  template: src=zec-miner-cfg.j2 dest=/home/mining/zec-miner/miner-ansible.cfg
+            owner=mining group=mining mode=0440
+
+- name: Setup ewbf miner script
+  template: src=zec-miner.j2 dest=/home/mining/zec-miner.sh
+            owner=mining group=mining mode=0550
+
+- name: Setup ewbf service
+  template: src=zec-miner-service.j2 dest=/etc/systemd/system/zec-miner.service
+            owner=root group=root mode=0440
+  when: mining_ewbf_zec_service is defined and mining_ewbf_zec_service
+
+- name: Enable ewbf service
+  service: name=zec-miner.service enabled=yes
+  when: mining_ewbf_zec_service is defined and mining_ewbf_zec_service

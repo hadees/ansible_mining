@@ -1,0 +1,26 @@
+---
+- name: Setup mining user group
+  group:
+    name: mining
+
+- name: Setup dedicated mining user
+  user:
+    name: mining
+    shell: /bin/bash
+    groups: mining
+
+# Minergate setup
+- import_tasks: minergate.yml
+  when: mining_minergate is defined and mining_minergate
+
+# ccminer setup
+- import_tasks: ccminer.yml
+  when: mining_ccminer is defined and mining_ccminer
+
+# ccminer-cryptonight setup
+- import_tasks: ccminer-cryptonight.yml
+  when: mining_ccminer_cryptonight is defined and mining_ccminer_cryptonight
+
+# ewbf's zec miner setup
+- import_tasks: ewbf-zec.yml
+  when: mining_ewbf_zec is defined and mining_ewbf_zec

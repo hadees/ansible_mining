@@ -1,0 +1,38 @@
+---
+- name: Create directory for ccminer
+  file: path=/home/mining/ccminer state=directory
+        owner=mining group=mining mode=0770
+
+- name: Checkout ccminer sources
+  git:
+    repo: 'https://github.com/KlausT/ccminer'
+    dest: /home/mining/ccminer
+
+- name: Install ccminer build dependencies
+  apt: name="{{ item }}" state=present update_cache=yes cache_valid_time=3600
+  with_items:
+    - autoconf
+    - autotools-dev
+    - libcurl4-openssl-dev
+    - libjansson-dev
+
+- name: Build ccminer sources (this make take awhile)
+  command: "{{ item }}"
+  args:
+    chdir: /home/mining/ccminer/ 
+    creates: /home/mining/ccminer/ccminer
+  with_items:
+  - ./build.sh
+
+- name: Setup sia script
+  template: src=ccminer-sia.j2 dest=/home/mining/ccminer-sia.sh
+            owner=mining group=mining mode=0550
+
+- name: Setup ccminer service
+  template: src=ccminer-service.j2 dest=/etc/systemd/system/ccminer.service
+            owner=root group=root mode=0440
+  when: mining_ccminer_service is defined and mining_ccminer_service
+
+- name: Enable ccminer service
+  service: name=ccminer.service enabled=yes
+  when: mining_ccminer_service is defined and mining_ccminer_service

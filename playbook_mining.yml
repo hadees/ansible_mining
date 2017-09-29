@@ -1,0 +1,6 @@
+---
+- hosts: all
+
+  roles:
+    - { role: gpu-nvidia, when: gpu_nvidia is defined and gpu_nvidia }
+    - mining

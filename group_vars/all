@@ -1,0 +1,17 @@
+---
+##########
+# misc ansible options
+##########
+administrator_user: root
+utf8: true
+
+##########
+# Misc global options
+##########
+gpu_nvidia: True
+
+##########
+# Mining variables
+##########
+mining_address_zec: t1fBdJnxKuLxAnvTNBGKu4ALpBdmuTXUqyo
+mining_address_sc: 6f16e6658df2adcaea2b5534f851594dac9b3f3b8f3b8c41bd799d69375f8cd0f1d6dde1d8ba
