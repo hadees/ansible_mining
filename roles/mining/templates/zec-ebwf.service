@@ -1,12 +1,12 @@
 [Unit]
-Description=mining-minergate
+Description=mining-zec-ebwf
 After=network.target
 
 [Service]
 Type=simple
 User=mining
 WorkingDirectory=/home/mining
-ExecStart=/home/mining/minergate.sh
+ExecStart=/home/mining/zec-ebwf.sh
 TimeoutSec=15
 Restart=always
 

@@ -1,6 +1,6 @@
 Overview
 =
-This is a basic Ansible role for setting up the fundamental software on an Ubuntu machine
+This is a simple Ansible role for deploying nvidia CUDA to a Linux host
 
 Code License
 =

@@ -1,12 +1,12 @@
 [Unit]
-Description=mining-ccminer-cryptonight
+Description=xmr-xdn-ccminer-cryptonight
 After=network.target
 
 [Service]
 Type=simple
 User=mining
 WorkingDirectory=/home/mining
-ExecStart=/home/mining/ccminer-xmr-xdn.sh
+ExecStart=/home/mining/xmr-xdn-ccminer-cryptonight.sh
 TimeoutSec=15
 Restart=always
 

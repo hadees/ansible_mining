@@ -1,12 +1,12 @@
 [Unit]
-Description=mining-ccminer-sia
+Description=mining-eth-sia-claymore
 After=network.target
 
 [Service]
 Type=simple
 User=mining
 WorkingDirectory=/home/mining
-ExecStart=/home/mining/ccminer-sia.sh
+ExecStart=/home/mining/eth-sia-claymore.sh
 TimeoutSec=15
 Restart=always
 

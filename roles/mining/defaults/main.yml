@@ -1,26 +1,50 @@
 ---
+# Mining apps
 mining_minergate: True
-mining_minergate_service: False
-mining_ccminer: False
-mining_ccminer_service: False
-mining_ccminer_cryptonight: False
-mining_ccminer_cryptonight_service: False
-mining_ewbf_zec: False
-mining_ewbf_zec_service: False
+mining_ccminer: True
+mining_ccminer_alt: False
+mining_ccminer_cryptonight: True
+mining_ebwf: True
+mining_claymore_dual: True
 
+# Mining scripts / configs
+mining_bcn_xmr_minergate: True
+mining_eth_sia_claymore: True
+mining_lbry_ccminer_alt: False
+mining_music_sc_claymore: True
+mining_sc_ccminer: True
+mining_xmr_xdn_ccminer_cryptonight: True
+mining_zec_ebwf: True
 
+# Mining services
+mining_bcn_xmr_minergate_service: False
+mining_eth_sia_claymore_service: False
+mining_lbry_ccminer_alt_service: False
+mining_music_sc_claymore_service: False
+mining_sc_ccminer_service: False
+mining_xmr_xdn_ccminer_cryptonight_service: False
+mining_zec_ebwf_service: False
+
+# Hardware Utilization
 mining_free_cpu_cores: "{{ 2 * ansible_processor_count }}"
-mining_device_name: default
+mining_device_name: "{{ ansible_hostname }}"
 
+# Mining misc config
 mining_bcn_cores: 1
 mining_sia_intensity: 28
 
+# Mining devices
+mining_devices_xmr_xdn: "0,1,2,3,4,5"
+mining_devices_sc: "0,1,2,3,4,5"
+mining_devices_zec: "0 1 3 4 5"
+mining_devices_eth: "0,1,2,3,4,5"
+mining_devices_music: "0,1,2,3,4,5"
+mining_devices_lbry: "0,1,2,3,4,5"
 
-mining_xmr_xdn_devices: "0,1,2,3,4,5"
-mining_sia_devices: "0,1,2,3,4,5"
-mining_zec_devices: "0 1 3 4 5"
-
-
-mining_email: none@where.com
-mining_address_zec: asdf1234asdf
-mining_address_sc: asdf1234asdf
+# Mining addresses
+mining_address_email: cucountry63@protonmail.com
+mining_address_eth: 0xd67aff4e2140cd45b4bfaadfc87f6a54beb40967
+mining_address_zec: t1fBdJnxKuLxAnvTNBGKu4ALpBdmuTXUqyo
+mining_address_sc: 6f16e6658df2adcaea2b5534f851594dac9b3f3b8f3b8c41bd799d69375f8cd0f1d6dde1d8ba
+mining_address_music: 0x4ac0c6de8a112574da6915cd71b8f409ecefb5b8
+mining_address_lbry: bQkERNa2XJgntNTQerK2bt6ppUYKfgWCYJ

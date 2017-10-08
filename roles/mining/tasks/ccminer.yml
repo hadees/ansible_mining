@@ -14,25 +14,33 @@
     - autoconf
     - autotools-dev
     - libcurl4-openssl-dev
+    - libssl-dev
     - libjansson-dev
+    - automake
+    - build-essential
 
 - name: Build ccminer sources (this make take awhile)
   command: "{{ item }}"
   args:
-    chdir: /home/mining/ccminer/ 
+    chdir: /home/mining/ccminer/
     creates: /home/mining/ccminer/ccminer
   with_items:
   - ./build.sh
 
-- name: Setup sia script
-  template: src=ccminer-sia.j2 dest=/home/mining/ccminer-sia.sh
+- name: Setup sc-ccminer script
+  template: src=sc-ccminer.sh dest=/home/mining/sc-ccminer.sh
             owner=mining group=mining mode=0550
+  when: mining_sc_ccminer is defined and mining_sc_ccminer
 
-- name: Setup ccminer service
-  template: src=ccminer-service.j2 dest=/etc/systemd/system/ccminer.service
+- name: Setup sc-ccminer service
+  template: src=sc-ccminer.service dest=/etc/systemd/system/sc-ccminer.service
             owner=root group=root mode=0440
-  when: mining_ccminer_service is defined and mining_ccminer_service
+  when: mining_sc_ccminer is defined and mining_sc_ccminer
 
-- name: Enable ccminer service
-  service: name=ccminer.service enabled=yes
-  when: mining_ccminer_service is defined and mining_ccminer_service
+- name: Enable sc-ccminer service
+  service: name=sc-ccminer.service enabled=yes
+  when: mining_sc_ccminer_service is defined and mining_sc_ccminer_service
+
+- name: Disable sc-ccminer service
+  service: name=sc-ccminer.service enabled=no
+  when: mining_sc_ccminer_service is not defined or not mining_sc_ccminer_service

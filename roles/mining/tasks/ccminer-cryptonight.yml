@@ -41,15 +41,20 @@
   - ./configure
   - make -j{{ ansible_processor_cores }}
 
-- name: Setup xmr-xdn script
-  template: src=ccminer-xmr-xdn.j2 dest=/home/mining/ccminer-xmr-xdn.sh
+- name: Setup xmr-xdn-ccminer-cryptonight script
+  template: src=xmr-xdn-ccminer-cryptonight.sh dest=/home/mining/xmr-xdn-ccminer-cryptonight.sh
             owner=mining group=mining mode=0550
+  when: mining_xmr_xdn_ccminer_cryptonight is defined and mining_xmr_xdn_ccminer_cryptonight
 
-- name: Setup ccminer-cryptonight service
-  template: src=ccminer-cryptonight-service.j2 dest=/etc/systemd/system/ccminer-cryptonight.service
+- name: Setup xmr-xdn-ccminer-cryptonight service
+  template: src=xmr-xdn-ccminer-cryptonight.service dest=/etc/systemd/system/xmr-xdn-ccminer-cryptonight.service
             owner=root group=root mode=0440
-  when: mining_ccminer_cryptonight_service is defined and mining_ccminer_cryptonight_service
+  when: mining_xmr_xdn_ccminer_cryptonight is defined and mining_xmr_xdn_ccminer_cryptonight
 
-- name: Enable ccminer-cryptonight service
-  service: name=ccminer-cryptonight.service enabled=yes
-  when: mining_ccminer_cryptonight_service is defined and mining_ccminer_cryptonight_service
+- name: Enable xmr-xdn-ccminer-cryptonight  service
+  service: name=xmr-xdn-ccminer-cryptonight.service enabled=yes
+  when: mining_xmr_xdn_ccminer_cryptonight_service is defined and mining_xmr_xdn_ccminer_cryptonight_service
+
+- name: Disable xmr-xdn-ccminer-cryptonight  service
+  service: name=xmr-xdn-ccminer-cryptonight.service enabled=no
+  when: mining_xmr_xdn_ccminer_cryptonight_service is not defined or not mining_xmr_xdn_ccminer_cryptonight_service

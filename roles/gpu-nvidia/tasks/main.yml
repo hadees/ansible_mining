@@ -1,7 +1,6 @@
 ---
 - name: Update apt cache
   apt: update_cache=yes cache_valid_time=3600
-  ignore_errors: True
 
 - name: Install dependencies
   apt:  pkg={{item}} state=present
@@ -21,31 +20,31 @@
 - name: Add apt key(s)
   apt_key: url="https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/7fa2af80.pub"
 
-- name: Update apt cache
-  apt: update_cache=yes cache_valid_time=3600
-  ignore_errors: True
-
 - name: Install cuda packages
-  apt: name="{{ item }}" state=present
+  apt: name="{{ item }}" state=present update_cache=yes
   with_items:
     - cuda
 
-- stat: path=/{{ administrator_user }}/.bashrc
+- name: Setup cuda symlink to cuda 9.0 path
+  file: src=/usr/local/cuda-9.0 dest=/usr/local/cuda
+        state=link
+
+- stat: path=/home/{{ administrator_user }}/.bashrc_custom
   register: p
 
 - name: Create extended bashrc if necessary
-  file: path=/{{ administrator_user }}/.bashrc
+  file: path=/home/{{ administrator_user }}/.bashrc_custom
         owner={{ administrator_user }}
         group={{ administrator_user }}
         mode=0770
         state={{ "file" if  p.stat.exists else "touch"}}
 
-- name: Add cuda to path (.bashrc)
+- name: Add cuda to path (.bashrc_custom)
   lineinfile:
-    path: /{{ administrator_user }}/.bashrc
+    path: /home/{{ administrator_user }}/.bashrc_custom
     line: 'export PATH=/usr/local/cuda/bin:${PATH}'
 
-- name: Add cuda to ld library path (.bashrc)
+- name: Add cuda to ld library path (.bashrc_custom)
   lineinfile:
-    path: /{{ administrator_user }}/.bashrc
+    path: /home/{{ administrator_user }}/.bashrc_custom
     line: 'export LD_LIBRARY_PATH=/usr/local/cuda/lib64:${LD_LIBRARY_PATH}'
