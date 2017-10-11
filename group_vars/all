@@ -13,9 +13,9 @@ gpu_nvidia: True
 ##########
 # Global mining options
 ##########
-mining_address_email: cucountry63@protonmail.com
-mining_address_eth: 0xd67aff4e2140cd45b4bfaadfc87f6a54beb40967
-mining_address_zec: t1fBdJnxKuLxAnvTNBGKu4ALpBdmuTXUqyo
-mining_address_sc: 6f16e6658df2adcaea2b5534f851594dac9b3f3b8f3b8c41bd799d69375f8cd0f1d6dde1d8ba
-mining_address_music: 0x4ac0c6de8a112574da6915cd71b8f409ecefb5b8
-mining_address_lbry: bQkERNa2XJgntNTQerK2bt6ppUYKfgWCYJ
+mining_address_email: "cucountry63@protonmail.com"
+mining_address_eth: "0xd67aff4e2140cd45b4bfaadfc87f6a54beb40967"
+mining_address_zec: "t1fBdJnxKuLxAnvTNBGKu4ALpBdmuTXUqyo"
+mining_address_sc: "6f16e6658df2adcaea2b5534f851594dac9b3f3b8f3b8c41bd799d69375f8cd0f1d6dde1d8ba"
+mining_address_music: "0x4ac0c6de8a112574da6915cd71b8f409ecefb5b8"
+mining_address_lbry: "bQkERNa2XJgntNTQerK2bt6ppUYKfgWCYJ"

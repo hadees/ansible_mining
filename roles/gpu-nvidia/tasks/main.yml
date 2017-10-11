@@ -29,22 +29,12 @@
   file: src=/usr/local/cuda-9.0 dest=/usr/local/cuda
         state=link
 
-- stat: path=/home/{{ administrator_user }}/.bashrc_custom
-  register: p
-
-- name: Create extended bashrc if necessary
-  file: path=/home/{{ administrator_user }}/.bashrc_custom
-        owner={{ administrator_user }}
-        group={{ administrator_user }}
-        mode=0770
-        state={{ "file" if  p.stat.exists else "touch"}}
-
-- name: Add cuda to path (.bashrc_custom)
+- name: Add cuda to bash path
   lineinfile:
-    path: /home/{{ administrator_user }}/.bashrc_custom
+    path: /home/{{ administrator_user }}/.bashrc
     line: 'export PATH=/usr/local/cuda/bin:${PATH}'
 
-- name: Add cuda to ld library path (.bashrc_custom)
+- name: Add cuda to ld library path
   lineinfile:
-    path: /home/{{ administrator_user }}/.bashrc_custom
+    path: /home/{{ administrator_user }}/.bashrc
     line: 'export LD_LIBRARY_PATH=/usr/local/cuda/lib64:${LD_LIBRARY_PATH}'
