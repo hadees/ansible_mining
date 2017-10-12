@@ -1,9 +1,9 @@
 ---
 # Mining apps
 mining_minergate: True
-mining_ccminer: True
-mining_ccminer_alt: True
-mining_ccminer_cryptonight: True
+mining_ccminer: False
+mining_ccminer_alt: False
+mining_ccminer_cryptonight: False
 mining_ebwf: True
 mining_claymore_dual: True
 mining_marlin: True
