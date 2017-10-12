@@ -28,3 +28,15 @@
 - name: Setup cuda symlink to cuda 9.0 path
   file: src=/usr/local/cuda-9.0 dest=/usr/local/cuda
         state=link force=yes
+
+- name: Add cuda to bash path (root)
+  lineinfile:
+    path: /root/.bashrc
+    line: 'export PATH=/usr/local/cuda/bin:${PATH}'
+  when: gpu_nvidia is defined and gpu_nvidia
+
+- name: Add cuda to ld library path (root)
+  lineinfile:
+    path: /root/.bashrc
+    line: 'export LD_LIBRARY_PATH=/usr/local/cuda/lib64:${LD_LIBRARY_PATH}'
+  when: gpu_nvidia is defined and gpu_nvidia
