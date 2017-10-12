@@ -20,33 +20,52 @@
             owner=mining group=mining mode=0550
   when: mining_eth_sia_claymore is defined and mining_eth_sia_claymore
 
-- name: Setup eth-sia-claymore service
-  template: src=eth-sia-claymore.service dest=/etc/systemd/system/eth-sia-claymore.service
-            owner=root group=root mode=0440
-  when: mining_eth_sia_claymore is defined and mining_eth_sia_claymore
-
-- name: Enable eth-sia-claymore service
-  service: name=eth-sia-claymore.service enabled=yes
-  when: mining_eth_sia_claymore_service is defined and mining_eth_sia_claymore_service
-
-- name: Disable eth-sia-claymore service
-  service: name=eth-sia-claymore.service enabled=no
-  when: mining_eth_sia_claymore_service is not defined or not mining_eth_sia_claymore_service
-
 - name: Setup music-sc-claymore script
   template: src=music-sc-claymore.sh dest=/home/mining/music-sc-claymore.sh
             owner=mining group=mining mode=0550
   when: mining_music_sc_claymore is defined and mining_music_sc_claymore
 
-- name: Setup cmusic-sc-claymore service
+- name: Setup eth-sia-claymore service
+  template: src=eth-sia-claymore.service dest=/etc/systemd/system/eth-sia-claymore.service
+            owner=root group=root mode=0440
+  when: mining_eth_sia_claymore is defined and mining_eth_sia_claymore
+
+  - name: Setup cmusic-sc-claymore service
   template: src=music-sc-claymore.service dest=/etc/systemd/system/music-sc-claymore.service
             owner=root group=root mode=0440
   when: mining_music_sc_claymore is defined and mining_music_sc_claymore
 
+- name: Reload systemd to pickup new services
+  systemd: daemon_reload=yes
+
+- name: Enable eth-sia-claymore service
+  systemd: name=eth-sia-claymore.service enabled=yes
+  when: mining_eth_sia_claymore_service is defined and mining_eth_sia_claymore_service
+
+- name: Disable eth-sia-claymore service
+  systemd: name=eth-sia-claymore.service enabled=no
+  when: mining_eth_sia_claymore_service is not defined or not mining_eth_sia_claymore_service
+
 - name: Enable music-sc-claymore service
-  service: name=music-sc-claymore.service enabled=yes
+  systemd: name=music-sc-claymore.service enabled=yes
   when: mining_music_sc_claymore_service is defined and mining_music_sc_claymore_service
 
 - name: Disable music-sc-claymore service
-  service: name=music-sc-claymore.service enabled=no
+  systemd: name=music-sc-claymore.service enabled=no
   when: mining_music_sc_claymore_service is not defined or not mining_music_sc_claymore_service
+
+- name: Start eth-sia-claymore service
+  systemd: name=eth-sia-claymore.service state=reloaded
+  when: mining_eth_sia_claymore_service_start is defined and mining_eth_sia_claymore_service_start
+
+- name: Stop eth-sia-claymore service
+  systemd: name=eth-sia-claymore.service state=stopped
+  when: mining_eth_sia_claymore_service_start is not defined or not mining_eth_sia_claymore_service_start
+
+- name: Start music-sc-claymore service
+  systemd: name=music-sc-claymore.service state=reloaded
+  when: mining_music_sc_claymore_service_start is defined and mining_music_sc_claymore_service_start
+
+- name: Stop music-sc-claymore service
+  systemd: name=music-sc-claymore.service state=stopped
+  when: mining_music_sc_claymore_service_start is not defined or not mining_music_sc_claymore_service_start

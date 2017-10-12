@@ -11,5 +11,5 @@
     -allpools 1 \
     -dcoin sia \
     -dpool stratum+tcp://sia-us-east1.nanopool.org:7777 \
-    -dwal {{ mining_address_sc }}/{{ mining_device_name }}/{{ mining_address_email }} \
+    -dwal "{{ mining_address_sc }}/{{ mining_device_name }}/{{ mining_address_email }}" \
     -dpsw x

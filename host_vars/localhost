@@ -2,16 +2,10 @@
 ##########
 # Mining options
 ##########
-mining_bcn_xmr_minergate_service: True
-mining_eth_sia_claymore_service: True
-mining_music_sc_claymore_service: True
-mining_sc_ccminer_service: True
-mining_xmr_xdn_ccminer_cryptonight_service: True
-mining_zec_ebwf_service: True
+gpu_nvidia: True
 
-mining_devices_xmr_xdn: "0,1,2,3,4,5"
-mining_devices_sc: "0,1,2,3,4,5"
-mining_devices_zec: "0 1 3 4 5"
-mining_devices_eth: "0,1,2,3,4,5"
-mining_devices_music: "0,1,2,3,4,5"
-mining_devices_lbry: "0,1,2,3,4,5"
+#mining_device_name: "azure-`sudo dmidecode | grep UUID | cut -d':' -f2 | sed s/\\ //g`"
+mining_device_name: "rig-`sudo dmidecode | grep UUID | cut -d':' -f2 | sed s/\\ //g`"
+
+mining_bcn_xmr_minergate_service: True
+mining_bcn_xmr_minergate_service_start: True

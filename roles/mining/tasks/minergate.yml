@@ -19,10 +19,21 @@
             owner=root group=root mode=0440
   when: mining_bcn_xmr_minergate is defined and mining_bcn_xmr_minergate
 
+- name: Reload systemd to pickup new service
+  systemd: daemon_reload=yes
+
 - name: Enable bcn-xmr-minergate service
-  service: name=bcn-xmr-minergate.service enabled=yes
+  systemd: name=bcn-xmr-minergate.service enabled=yes
   when: mining_bcn_xmr_minergate_service is defined and mining_bcn_xmr_minergate_service
 
 - name: Disable bcn-xmr-minergate service
-  service: name=bcn-xmr-minergate.service enabled=no
+  systemd: name=bcn-xmr-minergate.service enabled=no
   when: mining_bcn_xmr_minergate_service is not defined or not mining_bcn_xmr_minergate_service
+
+- name: Start bcn-xmr-minergate service
+  systemd: name=bcn-xmr-minergate.service state=reloaded
+  when: mining_bcn_xmr_minergate_service_start is defined and mining_bcn_xmr_minergate_service_start
+
+- name: Stop bcn-xmr-minergate service
+  systemd: name=bcn-xmr-minergate.service state=stopped
+  when: mining_bcn_xmr_minergate_service_start is not defined or not mining_bcn_xmr_minergate_service_start

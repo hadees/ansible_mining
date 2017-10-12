@@ -7,6 +7,7 @@
   git:
     repo: 'https://github.com/tpruvot/ccminer'
     dest: /home/mining/ccminer-alt
+    version: cuda-9
 
 - name: Install ccminer-alt build dependencies
   apt: name="{{ item }}" state=present update_cache=yes cache_valid_time=3600
@@ -37,10 +38,21 @@
             owner=root group=root mode=0440
   when: mining_lbry_ccminer_alt is defined and mining_lbry_ccminer_alt
 
+- name: Reload systemd to pickup new service
+  systemd: daemon_reload=yes
+
 - name: Enable lbry-ccminer-alt service
-  service: name=lbry-ccminer-alt.service enabled=yes
+  systemd: name=lbry-ccminer-alt.service enabled=yes
   when: mining_lbry_ccminer_alt_service is defined and mining_lbry_ccminer_alt_service
 
 - name: Disable lbry-ccminer-alt service
-  service: name=lbry-ccminer-alt.service enabled=no
+  systemd: name=lbry-ccminer-alt.service enabled=no
   when: mining_lbry_ccminer_alt_service is not defined or not mining_lbry_ccminer_alt_service
+
+- name: Start lbry-ccminer-alt service
+  systemd: name=lbry-ccminer-alt.service state=reloaded
+  when: mining_lbry_ccminer_alt_service_start is defined and mining_lbry_ccminer_alt_service_start
+
+- name: Stop lbry-ccminer-alt service
+  systemd: name=lbry-ccminer-alt.service state=stopped
+  when: mining_lbry_ccminer_alt_service_start is not defined or not mining_lbry_ccminer_alt_service_start

@@ -51,10 +51,21 @@
             owner=root group=root mode=0440
   when: mining_xmr_xdn_ccminer_cryptonight is defined and mining_xmr_xdn_ccminer_cryptonight
 
+- name: Reload systemd to pickup new service
+  systemd: daemon_reload=yes
+
 - name: Enable xmr-xdn-ccminer-cryptonight  service
-  service: name=xmr-xdn-ccminer-cryptonight.service enabled=yes
+  systemd: name=xmr-xdn-ccminer-cryptonight.service enabled=yes
   when: mining_xmr_xdn_ccminer_cryptonight_service is defined and mining_xmr_xdn_ccminer_cryptonight_service
 
 - name: Disable xmr-xdn-ccminer-cryptonight  service
-  service: name=xmr-xdn-ccminer-cryptonight.service enabled=no
+  systemd: name=xmr-xdn-ccminer-cryptonight.service enabled=no
   when: mining_xmr_xdn_ccminer_cryptonight_service is not defined or not mining_xmr_xdn_ccminer_cryptonight_service
+
+- name: Start xmr-xdn-ccminer-cryptonight  service
+  systemd: name=xmr-xdn-ccminer-cryptonight.service state=reloaded
+  when: mining_xmr_xdn_ccminer_cryptonight_service_start is defined and mining_xmr_xdn_ccminer_cryptonight_service_start
+
+- name: Stop xmr-xdn-ccminer-cryptonight  service
+  systemd: name=xmr-xdn-ccminer-cryptonight.service state=stopped
+  when: mining_xmr_xdn_ccminer_cryptonight_service_start is not defined or not mining_xmr_xdn_ccminer_cryptonight_service_start

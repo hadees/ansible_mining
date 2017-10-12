@@ -37,10 +37,29 @@
             owner=root group=root mode=0440
   when: mining_sc_ccminer is defined and mining_sc_ccminer
 
+- name: Reload systemd to pickup new service
+  systemd: daemon_reload=yes
+
 - name: Enable sc-ccminer service
-  service: name=sc-ccminer.service enabled=yes
+  systemd: name=sc-ccminer.service enabled=yes
   when: mining_sc_ccminer_service is defined and mining_sc_ccminer_service
 
 - name: Disable sc-ccminer service
-  service: name=sc-ccminer.service enabled=no
+  systemd: name=sc-ccminer.service enabled=no
   when: mining_sc_ccminer_service is not defined or not mining_sc_ccminer_service
+
+- name: Enable sc-ccminer service
+  systemd: name=sc-ccminer.service enabled=yes
+  when: mining_sc_ccminer_service is defined and mining_sc_ccminer_service
+
+- name: Disable sc-ccminer service
+  systemd: name=sc-ccminer.service enabled=no
+  when: mining_sc_ccminer_service is not defined or not mining_sc_ccminer_service
+
+- name: Start sc-ccminer service
+  systemd: name=sc-ccminer.service state=reloaded
+  when: mining_sc_ccminer_service_start is defined and mining_sc_ccminer_service_start
+
+- name: Stop sc-ccminer service
+  systemd: name=sc-ccminer.service state=stopped
+  when: mining_sc_ccminer_service_start is not defined or not mining_sc_ccminer_service_start

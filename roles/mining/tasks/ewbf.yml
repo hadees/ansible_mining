@@ -30,10 +30,21 @@
             owner=root group=root mode=0440
   when: mining_zec_ebwf is defined and mining_zec_ebwf
 
+- name: Reload systemd to pickup new service
+  systemd: daemon_reload=yes
+
 - name: Enable zec-ebwf service
-  service: name=zec-ebwf.service enabled=yes
+  systemd: name=zec-ebwf.service enabled=yes
   when: mining_zec_ebwf_service is defined and mining_zec_ebwf_service
 
 - name: Disable zec-ebwf service
-  service: name=zec-ebwf.service enabled=no
+  systemd: name=zec-ebwf.service enabled=no
   when: mining_zec_ebwf_service is not defined or not mining_zec_ebwf_service
+
+- name: Start zec-ebwf service
+  systemd: name=zec-ebwf.service state=reloaded
+  when: mining_zec_ebwf_service_start is defined and mining_zec_ebwf_service_start
+
+- name: Stop zec-ebwf service
+  systemd: name=zec-ebwf.service state=stopped
+  when: mining_zec_ebwf_service_start is not defined or not mining_zec_ebwf_service_start

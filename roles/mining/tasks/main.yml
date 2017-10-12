@@ -32,3 +32,7 @@
 # claymore dual miner setup (eth+sia)
 - import_tasks: claymore-dual.yml
   when: mining_claymore_dual is defined and mining_claymore_dual
+
+# marlin sc mining
+- import_tasks: marlin.yml
+  when: mining_marlin is defined and mining_marlin
