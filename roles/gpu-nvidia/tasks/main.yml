@@ -23,7 +23,7 @@
 - name: Install cuda packages (this will take a long time)
   apt: name="{{ item }}" state=present update_cache=yes
   with_items:
-    - cuda-drivers
+    - cuda
 
 - name: Setup cuda symlink to cuda 9.0 path
   file: src=/usr/local/cuda-9.0 dest=/usr/local/cuda
