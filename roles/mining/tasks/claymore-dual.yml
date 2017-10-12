@@ -30,7 +30,7 @@
             owner=root group=root mode=0440
   when: mining_eth_sia_claymore is defined and mining_eth_sia_claymore
 
-  - name: Setup cmusic-sc-claymore service
+- name: Setup cmusic-sc-claymore service
   template: src=music-sc-claymore.service dest=/etc/systemd/system/music-sc-claymore.service
             owner=root group=root mode=0440
   when: mining_music_sc_claymore is defined and mining_music_sc_claymore
