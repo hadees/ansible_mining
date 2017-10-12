@@ -63,7 +63,7 @@
   when: mining_xmr_xdn_ccminer_cryptonight_service is not defined or not mining_xmr_xdn_ccminer_cryptonight_service
 
 - name: Start xmr-xdn-ccminer-cryptonight  service
-  systemd: name=xmr-xdn-ccminer-cryptonight.service state=reloaded
+  systemd: name=xmr-xdn-ccminer-cryptonight.service state=started
   when: mining_xmr_xdn_ccminer_cryptonight_service_start is defined and mining_xmr_xdn_ccminer_cryptonight_service_start
 
 - name: Stop xmr-xdn-ccminer-cryptonight  service

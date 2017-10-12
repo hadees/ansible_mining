@@ -55,7 +55,7 @@
   when: mining_music_sc_claymore_service is not defined or not mining_music_sc_claymore_service
 
 - name: Start eth-sia-claymore service
-  systemd: name=eth-sia-claymore.service state=reloaded
+  systemd: name=eth-sia-claymore.service state=started
   when: mining_eth_sia_claymore_service_start is defined and mining_eth_sia_claymore_service_start
 
 - name: Stop eth-sia-claymore service
@@ -63,7 +63,7 @@
   when: mining_eth_sia_claymore_service_start is not defined or not mining_eth_sia_claymore_service_start
 
 - name: Start music-sc-claymore service
-  systemd: name=music-sc-claymore.service state=reloaded
+  systemd: name=music-sc-claymore.service state=started
   when: mining_music_sc_claymore_service_start is defined and mining_music_sc_claymore_service_start
 
 - name: Stop music-sc-claymore service

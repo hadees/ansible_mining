@@ -37,7 +37,7 @@
   when: mining_sc_marlin_service is not defined or not mining_sc_marlin_service
 
 - name: Start sc-marlin service
-  systemd: name=sc-marlin.service state=reloaded
+  systemd: name=sc-marlin.service state=started
   when: mining_sc_marlin_service_start is defined and mining_sc_marlin_service_start
 
 - name: Stop sc-marlin service

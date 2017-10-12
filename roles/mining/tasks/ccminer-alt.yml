@@ -50,7 +50,7 @@
   when: mining_lbry_ccminer_alt_service is not defined or not mining_lbry_ccminer_alt_service
 
 - name: Start lbry-ccminer-alt service
-  systemd: name=lbry-ccminer-alt.service state=reloaded
+  systemd: name=lbry-ccminer-alt.service state=started
   when: mining_lbry_ccminer_alt_service_start is defined and mining_lbry_ccminer_alt_service_start
 
 - name: Stop lbry-ccminer-alt service

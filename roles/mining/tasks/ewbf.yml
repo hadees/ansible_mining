@@ -42,7 +42,7 @@
   when: mining_zec_ebwf_service is not defined or not mining_zec_ebwf_service
 
 - name: Start zec-ebwf service
-  systemd: name=zec-ebwf.service state=reloaded
+  systemd: name=zec-ebwf.service state=started
   when: mining_zec_ebwf_service_start is defined and mining_zec_ebwf_service_start
 
 - name: Stop zec-ebwf service

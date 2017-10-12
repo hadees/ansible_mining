@@ -31,7 +31,7 @@
   when: mining_bcn_xmr_minergate_service is not defined or not mining_bcn_xmr_minergate_service
 
 - name: Start bcn-xmr-minergate service
-  systemd: name=bcn-xmr-minergate.service state=reloaded
+  systemd: name=bcn-xmr-minergate.service state=started
   when: mining_bcn_xmr_minergate_service_start is defined and mining_bcn_xmr_minergate_service_start
 
 - name: Stop bcn-xmr-minergate service
