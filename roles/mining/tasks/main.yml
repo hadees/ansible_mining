@@ -21,6 +21,10 @@
     line: 'export LD_LIBRARY_PATH=/usr/local/cuda/lib64:${LD_LIBRARY_PATH}'
   when: gpu_nvidia is defined and gpu_nvidia
 
+- name: Setup mining group to run dmidecode (used for unique rig names)
+  template: src=sudoers_mining_dmidecode dest=/etc/sudoers.d/mining_dmidecode
+            owner=root group=root mode=0440
+
 # Minergate setup
 - import_tasks: minergate.yml
   when: mining_minergate is defined and mining_minergate
