@@ -20,8 +20,14 @@
 - name: Add apt key(s)
   apt_key: url="https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/7fa2af80.pub"
 
-- name: Install cuda packages (this will take a long time)
+- name: Install cuda-drivers package (this will take a long time)
   apt: name="{{ item }}" state=present update_cache=yes
+  with_items:
+    - cuda-drivers
+
+- name: Install full cuda stack (this will take an exceptionally long time)
+  apt: name="{{ item }}" state=present
+  when: cuda_full_stack is defined and cuda_full_stack
   with_items:
     - cuda
 
