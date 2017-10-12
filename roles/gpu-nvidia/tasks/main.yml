@@ -27,7 +27,7 @@
 
 - name: Setup cuda symlink to cuda 9.0 path
   file: src=/usr/local/cuda-9.0 dest=/usr/local/cuda
-        state=link
+        state=link force=yes
 
 - name: Add cuda to bash path
   lineinfile:
